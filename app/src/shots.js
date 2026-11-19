@@ -1,32 +1,32 @@
-// Fixed scenes for screenshots: ?shot=cover shows the cover alone at the
-// export size; ?shot=editor shows the editor with a sample photo loaded.
-// Query params: layout, grade, size, title, subtitle, badge, titlestyle.
-// window.__shotReady is set once the scene has painted.
-import { SIZES } from './cover.js';
+// Fixed scenes for screenshots: ?shot=cover shows the cover alone,
+// ?shot=editor shows the editor with photos loaded. Each scene names a
+// layout, grade, lettering and caption, plus which sample goes in each
+// of the four photo slots. window.__shotReady is set once painted.
+export const SHOT_SCENES = {
+  cover: {
+    layout: 'hero-top', grade: 'vice-sunset', lettering: 'block',
+    title: 'VICE LIGHTS', subtitle: 'one night in vice city', badge: 'VICE CITY • 2026',
+    size: 'wide', sampleSlots: [5, 0, 2, 3],
+  },
+  editor: {
+    layout: 'nine-grid', grade: 'neon-night', lettering: 'neon',
+    title: 'NIGHT SHIFT', subtitle: 'the city never sleeps', badge: 'VICE CITY • 2026',
+    size: 'square', sampleSlots: [0, 2, 3, 5],
+  },
+  portrait: {
+    layout: 'hero-left', grade: 'heat-haze', lettering: 'retro',
+    title: 'GOLDEN GETAWAY', subtitle: 'sunset on the boulevard', badge: 'LEONIDA • 2026',
+    size: 'portrait', sampleSlots: [2, 3, 5, 0],
+  },
+  square: {
+    layout: 'sunset-strip', grade: 'golden-hour', lettering: 'block',
+    title: 'PIER PRESSURE', subtitle: 'golden hour on the boardwalk', badge: 'GOLDEN HOUR',
+    size: 'square', sampleSlots: [1, 5, 3, 0],
+  },
+};
 
-export async function runShot(shot, query, api) {
-  const { state, setPhoto, loadImage, redraw, syncControls } = api;
-  state.layout = query.get('layout') ?? 'nine-panel';
-  state.grade = query.get('grade') ?? 'sunset';
-  state.size = query.get('size') ?? 'wide';
-  state.title = query.get('title') ?? 'NEON COAST';
-  state.subtitle = query.get('subtitle') ?? 'one night in vice city';
-  state.badge = query.get('badge') ?? 'VICE CITY • 2026';
-  state.titleStyle = query.get('titlestyle') ?? 'sunset';
-  if (query.get('panels')) {
-    const photos = query.get('panels').split('').map((c) => Number(c));
-    state.panels.forEach((p, i) => { if (photos[i] !== undefined) p.photo = photos[i]; });
-  }
-  await setPhoto(0, await loadImage('samples/boulevard.jpg'));
-  await setPhoto(1, await loadImage('samples/pier.jpg'));
-  syncControls();
-  if (shot === 'cover') {
-    document.body.classList.add('shot-cover');
-    const size = SIZES[state.size] ?? SIZES.wide;
-    const canvas = document.getElementById('cover');
-    canvas.width = size.w;
-    canvas.height = size.h;
-  }
-  redraw();
+export async function runShot(shot, apply) {
+  const scene = SHOT_SCENES[shot] || SHOT_SCENES.cover;
+  await apply(scene);
   requestAnimationFrame(() => requestAnimationFrame(() => { window.__shotReady = true; }));
 }
