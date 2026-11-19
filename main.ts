@@ -1,8 +1,9 @@
-// Vice Lights, round 2 — the hand-in program (Node 22, stdlib only).
-// Copies this repo's app/ and screenshots/ into the output directory
-// and writes dossier.json with the vendored make.fun library, exactly
-// as the kit's starter does. Outside the grader, MAKEFUN_OUTPUT_DIR
-// stands in for /output:
+// Vice Lights, a gta6-cover-art-01 entry (Node 22, standard library only).
+// The app is plain static files under app/ — index.html plus its modules,
+// vendored OFL fonts and sample photos — and this program hands it in: it
+// copies app/ and screenshots/ from beside this file into the output folder
+// and writes the dossier the judge reads, using the kit's vendored library.
+// Outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -20,8 +21,9 @@ if (existsSync(join(here, 'screenshots'))) {
   cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
 }
 
-// Caps from the sealed gate (reference/gate.json): the dossier text cap
-// shapes the bytes; the rest refuse an entry the scorer would refuse.
+// The scorer's caps, as the kit states them: the dossier text is capped at
+// 160 KiB, at most 4 screenshots of at most 256 KiB each, app/ at most 993
+// files and 48 MiB in all, every app/ path at most 1000 bytes.
 writeFileSync(
   join(out, 'dossier.json'),
   buildDossier(out, {
