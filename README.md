@@ -1,5 +1,9 @@
 # Vice Lights — Leonida Cover Studio
 
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/charlyies/gta6-cover-art/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/charlyies/gta6-cover-art/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+
 A free, offline cover-art maker in the style of GTA 6's posters. Drop in up
 to four of your own photos, type a caption, and export a multi-panel cover
 as a PNG to share. Nothing leaves your machine: the app is static files,
@@ -53,5 +57,6 @@ kit's vendored library:
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-Built for the make.fun bounty `gta6-cover-art-01`. Licensed MIT — see
+Built for the [make.fun](https://make.fun/bounty/gta6-cover-art-01) bounty
+[gta6-cover-art-01](https://make.fun/bounty/gta6-cover-art-01). Licensed MIT — see
 `LICENSE`.
